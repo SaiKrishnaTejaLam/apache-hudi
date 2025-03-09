@@ -99,18 +99,23 @@ aws s3api put-object \--bucket your-bucket-name \--key hudi/data/
 
 \`\`\`
 
-(https://bitbucket.org/ivorsource/sparkstreamingpipeline/src/DE-1579/HudiScripts/AcidTransactions\_Hudi.py)
+(https://github.com/SaiKrishnaTejaLam/apache-hudi/blob/main/HudiScripts/AcidTransactions_Hudi.py)
 
 The script is designed to manage and manipulate a Hudi table stored in an Amazon S3 bucket, leveraging AWS Glue and Apache Spark. It begins by initializing the Spark context with specific configurations to support Hudi operations. The script then reads an existing Hudi table, displaying the initial data, which demonstrates the ability to handle ACID transactions typical in databases but now applied to a data lake environment.
 
 The core functionality revolves around performing "upsert" operations, where new data is either inserted or updated if it already exists, demonstrating Hudi's powerful handling of mutable data sets in a distributed environment. After updating the data, the script reads and shows the modified Hudi table to verify the changes, ensuring data integrity and showcasing Hudi's snapshot capabilities.
 
+![Snapshot Of Data Being Loaded Into Hudi Table](Images/Snapshot%20of%20data%20loading%20into%20HUDI%20.png)
+
 Additionally, the script handles delete operations, where specified records are removed from the dataset, further emphasizing the ACID transaction capabilities of Hudi within a data lake, and concludes by reading and displaying the final state of the data. This end-to-end process not only highlights the practical application of Hudi in managing large-scale data with transactional integrity but also the seamless integration with cloud-native technologies like AWS Glue and S3 for robust data processing workflows.
+
+![Snapshot of Data being deleted from Hudi Table](Images/Snapshot%20of%20deletion%20of%20data%20from%20HUDI.png)
 
 ### **Time Travel:**
 
-(https://bitbucket.org/ivorsource/sparkstreamingpipeline/src/DE-1579/HudiScripts/TimeTravel.py)
+(https://github.com/SaiKrishnaTejaLam/apache-hudi/blob/main/HudiScripts/TimeTravel.py)
 
+![Snapshot of TimeTravel in HUDI](Images/TimeTravel%20in%20HUDI.png)
 This script initializes a Spark and AWS Glue environment, configures logging, and reads data from a Hudi table stored in an S3 bucket. The script is set up to use the KryoSerializer for efficient data serialization and the Hudi catalog for querying the table. It defines a function to query records from the Hudi table based on a specific commit time (provided as `query_date`) and logs the results. The script queries the table for two different commit times and prints the records. After execution, it logs the completion of the Glue job. The purpose is to retrieve and log specific records from a Hudi table stored on S3, based on commit timestamps.
 
 Time travel in Hudi is a powerful feature that allows you to query and analyze historical data. Here are some key points on how time travel is useful in Hudi:
@@ -127,7 +132,9 @@ Time travel in Hudi is a powerful feature that allows you to query and analyze h
 
 ### **Schema Evolution:**
 
-(https://bitbucket.org/ivorsource/sparkstreamingpipeline/src/DE-1579/HudiScripts/SchemaEvolution.py)
+(https://github.com/SaiKrishnaTejaLam/apache-hudi/blob/main/HudiScripts/SchemaEvolution.py)
+
+![Snapshot of SchemaEvolution](Images/SchemaEvolution%20in%20HUDI.png)
 
 In this script, schema evolution is implemented when new data with a different schema (i.e., an additional column) is upserted into an existing Hudi table. The script begins by defining an initial schema for reading the Hudi table, then defines a new schema that adds a `salary` column to the dataset. It demonstrates schema evolution by performing an upsert operation where new data is inserted with the updated schema (which includes the new column). The upsert is then executed, and the Hudi table is updated with the new schema. The updated table is read back, showing both the data and the schema, confirming the addition of the new column (`salary`). This allows the table to evolve dynamically without requiring schema changes to be manually applied, enabling flexibility in handling changing data structures.
 
